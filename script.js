@@ -41,7 +41,6 @@ var strict = false;
 var level = 0;
 
 /* Start button checks to see if the game isn't already running then starts the game and starts creating random colors */
-// GOOD
 function startGame() {
   if (start === false) {
     start = true;
@@ -56,16 +55,11 @@ function addColorToCpuPattern() {
   cpuPattern.push(createRandomColor());
   level++;
   document.getElementById("level").innerHTML = level;
-  /*  TEMPORARY------------------------------
-  alert("cpuPattern = " + cpuPattern);
-  alert("userPattern = " + userPattern);
-  //TEMPORARY------------------------------ */
   animateAllButtons();
 }
 
 /* Generates a random number between 0-3 and reates an array of colors corresponding to the random numbers, plays the corresponding
    sound, then returns a random color */
-// GOOD
 function createRandomColor() {
   var randomNumber = Math.floor(Math.random() * 4);
   playSound(randomNumber + 1);
@@ -114,7 +108,6 @@ function patternMatchTest() {
 }
 
 /* Plays sounds on colored button presses */
-// GOOD
 function playSound(number) {
   var sound = new Audio(
     "https://s3.amazonaws.com/freecodecamp/simonSound" + number + ".mp3"
@@ -123,7 +116,6 @@ function playSound(number) {
 }
 
 /* Resets the game by clearing both pattern arrays, resetting the level counter to 0, setting start to false and resetting the start button color */
-// GOOD
 function resetGame() {
   cpuPattern = [];
   userPattern = [];
@@ -133,7 +125,6 @@ function resetGame() {
 }
 
 /* Start button glow settings */
-// GOOD
 function startButtonGlow() {
     document.getElementById("start").style.backgroundColor = "red";
     document.getElementById("start").style.boxShadow = "0 0 30px red";
@@ -141,7 +132,6 @@ function startButtonGlow() {
 }
 
 /* Makes the colored buttons clickable */
-// GOOD
 function enableButtons() {
   colorPool.forEach(function(color) {
     document.getElementById(color).disabled = false;
@@ -149,7 +139,6 @@ function enableButtons() {
 }
 
 /* Button default settings */
-// GOOD
 function buttonDefaults() {
   document.getElementById("level").innerHTML = level;
   document.getElementById("start").style.backgroundColor = "#440000";
