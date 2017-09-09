@@ -1,51 +1,55 @@
 .colorbtn {
-    height: 100px;
-    width: 100px;
-    outline: none;
-  }
-  
-  .functionbtn {
-    height: 50px;
-    width: 50px;
-    outline: none;
-    border-radius: 100%;
-  }
-  
-  #red {
-    background-color: red;
-  }
-  
-  #green {
-    background-color: green;
-  }
-  
-  #blue {
-    background-color: blue;
-  }
-  
-  #yellow {
-    background-color: yellow;
-  }
-  
-  #start {
-    background-color: #440000;
-  }
-  
-  #reset {
-    background-color: black;
-  }
-  
-  #strict {
-  }
-  
-  #level {
-    height: 30px;
-    width: 100px;
-    line-height: 30px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 25px;
-    text-align: center;
-    color: red;
-    background-color: black;
-  }
-  
+  height: 100px;
+  width: 100px;
+  outline: none;
+}
+
+.functionbtn {
+  height: 50px;
+  width: 50px;
+  outline: none;
+  border-radius: 100%;
+}
+
+#green {
+  background-color: green;
+  border-radius: 100% 0 0 0;
+}
+
+#red {
+  background-color: red;
+  border-radius: 0 100% 0 0;
+}
+
+#blue {
+  background-color: blue;
+  border-radius: 0 0 100% 0;
+}
+
+#yellow {
+  background-color: yellow;
+  border-radius: 0 0 0 100%;
+}
+
+#start {
+  background-color: #440000;
+}
+
+#reset {
+  background-color: black;
+}
+
+#strict {
+}
+
+#level {
+  display:inline-block;
+  height: 30px;
+  width: 100px;
+  line-height: 30px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  color: red;
+  background-color: black;
+}
