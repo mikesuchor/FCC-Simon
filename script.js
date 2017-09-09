@@ -20,27 +20,27 @@ Hint: Here are mp3s you can use for each button: https://s3.amazonaws.com/freeco
 */
 
 /* Things to add:
-
-1. Disable user click during button animation.
-
+1. Fix sounds on button presses by CPU and by user.
+2. Fix nonstrict mode logic to repeat the sequence, not end the game.
+3. Add strict mode.
+4. Disable user click during button animation.
+5. Fix the CSS to make it look like the game.
 */
 
 /* Wish List:
-
-1. Add game start and game over sounds.
-2. 
-...
+1. Add game start and win/loss sounds.
+2. Add game speed toggle.
 */
 
-/* Variables to hold the color pool, computer's color pattern, user color pattern, start button flag, strict button flag, level number */
+/* Variables to hold the color pool, computer's color pattern, user color pattern, start button flag, strict button flag, and level number */
 var colorPool = ["green", "red", "blue", "yellow"];
 var cpuPattern = [];
 var userPattern = [];
 var start = false;
-var strict = false;
+var strict = true;
 var level = 0;
 
-/* Start button checks to see if the game isn't already running then starts the game and starts creating random colors */
+/* Start button checks to see if the game isn't already running then starts the game, animates the button with startButtonGlow(), turns on the colored buttons with enableButtons(), and starts adding colors to the CPU pattern with addColorToCpuPattern() */
 function startGame() {
   if (start === false) {
     start = true;
@@ -50,7 +50,7 @@ function startGame() {
   }
 }
 
-/* Pushes a random color to the end of the cpuPattern array and increments the level counter, then starts animating buttons */
+/* Pushes a random color to the end of the cpuPattern array with createRandomColor() and increments the level counter, then starts animating buttons with animateAllButtons() */
 function addColorToCpuPattern() {
   cpuPattern.push(createRandomColor());
   level++;
@@ -58,8 +58,7 @@ function addColorToCpuPattern() {
   animateAllButtons();
 }
 
-/* Generates a random number between 0-3 and reates an array of colors corresponding to the random numbers, plays the corresponding
-   sound, then returns a random color */
+/* Generates a random number between 0-3 and reates an array of colors corresponding to the random numbers, plays the corresponding sound, then returns a random color */
 function createRandomColor() {
   var randomNumber = Math.floor(Math.random() * 4);
   playSound(randomNumber + 1);
@@ -86,7 +85,7 @@ function animateOneButton(color) {
   }, 500);
 }
 
-/* Takes user input and pushes the color to the end of the userPattern array then runs matchTest() function to test vs the cpu */
+/* Takes user input and pushes the color to the end of the userPattern array then runs patternMatchTest() function to test vs the cpu */
 function userColorInput(color) {
     userPattern.push(color);
   if (userPattern.length === cpuPattern.length) {
@@ -94,14 +93,23 @@ function userColorInput(color) {
   }
 }
 
-/* Checks if the user input (pattern) matches the cpu output (pattern), if true the level number is incremented, and a new color is added
-   to the cpu pattern, if false the game is reset */
+/* Checks if the user input (pattern) matches the cpu output (pattern), if true the level number is incremented (game is won at level 20), and a new color is added to the cpu pattern, if false the game is reset */
 function patternMatchTest() {
   for (var i = 0; i < cpuPattern.length; i++) {
     if (userPattern[i] !== cpuPattern[i]) {
-      resetGame();
-      return;
-    } 
+      if (strict === true) {
+        lostGame();
+        resetGame();
+        return;
+      }
+      else {
+        
+      }
+    }
+  }
+  if (level === 20) {
+    wonGame();
+    return;
   }
   userPattern = [];
   addColorToCpuPattern();
@@ -115,7 +123,7 @@ function playSound(number) {
   sound.play();
 }
 
-/* Resets the game by clearing both pattern arrays, resetting the level counter to 0, setting start to false and resetting the start button color */
+/* Resets the game by clearing both pattern arrays, setting start to false, resetting the level counter to 0, and resetting the button defaults */
 function resetGame() {
   cpuPattern = [];
   userPattern = [];
@@ -149,7 +157,7 @@ function buttonDefaults() {
   });
 }
 
-/* Toggles strict game mode on and off 
+/* Toggles strict game mode on and off
 function toggleStrict() {
   if (strict === false) {
     strict = true;
@@ -160,25 +168,16 @@ function toggleStrict() {
   }
 }
 
- Tests if the game is in strict mode, if true the game ends in a loss, else clear the user input and replay the previous cpu pattern to try again
-function testStrict() {
-  if (strict === true) {
-    lostGame();
-  } else {
-    userPattern = [];
-    animateAllButtons();
-  }
-}
+*/
 
-// Won the game
+/* Won the game */
 function wonGame() {
   alert("You won!");
   resetGame();
 }
 
-// Lost the game
+/* Lost the game */
 function lostGame() {
-  alert("Game over!");
+  alert("You lose!");
   resetGame();
 }
-*/
