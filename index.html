@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Build a Simon Game</title>
   <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -15,9 +14,10 @@
   </button>
   <button class="colorbtn" id="red" name="red" value="2" disabled=true onclick="playSound(this.value); userColorInput(this.name)">
   </button>
-  <button class="colorbtn" id="blue" name="blue" value="3" disabled=true onclick="playSound(this.value); userColorInput(this.name)">
-  </button>
+  </br>
   <button class="colorbtn" id="yellow" name="yellow" value="4" disabled=true onclick="playSound(this.value); userColorInput(this.name)">
+  </button>
+    <button class="colorbtn" id="blue" name="blue" value="3" disabled=true onclick="playSound(this.value); userColorInput(this.name)">
   </button>
   <button class="functionbtn" id="start" name="start" value="start" onclick="startGame()">
   </button>
@@ -26,7 +26,6 @@
   <button class="functionbtn" id="strict" name="strict" value="strict" onclick="toggleStrict()">
   </button>
   <div id="level">0</div>
-  <script src="script.js"></script>
 </body>
 
 </html>
