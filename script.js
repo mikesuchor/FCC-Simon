@@ -24,7 +24,6 @@ Hint: Here are mp3s you can use for each button: https://s3.amazonaws.com/freeco
 2. Fix nonstrict mode logic to repeat the sequence, not end the game.
 3. Add strict mode.
 4. Disable user click during button animation.
-5. Fix the CSS to make it look like the game.
 */
 
 /* Wish List:
@@ -44,6 +43,7 @@ var level = 0;
 function startGame() {
   if (start === false) {
     start = true;
+    document.getElementById("start").disabled = true;
     startButtonGlow();
     enableButtons();
     addColorToCpuPattern();
@@ -79,15 +79,19 @@ function animateAllButtons() {
 
 /* Animates the current button to white for 1 second, then back to its original color */
 function animateOneButton(color) {
+  playSound(colorPool.indexOf(color)+1);
   document.getElementById(color).style.backgroundColor = "white";
+  document.getElementById(color).style.boxShadow = "0 0 15px white";
   setTimeout(function() {
     document.getElementById(color).style.backgroundColor = color;
+    document.getElementById(color).style.boxShadow = "none";
   }, 500);
 }
 
 /* Takes user input and pushes the color to the end of the userPattern array then runs patternMatchTest() function to test vs the cpu */
 function userColorInput(color) {
     userPattern.push(color);
+    animateOneButton(color);
   if (userPattern.length === cpuPattern.length) {
       patternMatchTest();
   }
@@ -96,18 +100,18 @@ function userColorInput(color) {
 /* Checks if the user input (pattern) matches the cpu output (pattern), if true the level number is incremented (game is won at level 20), and a new color is added to the cpu pattern, if false the game is reset */
 function patternMatchTest() {
   for (var i = 0; i < cpuPattern.length; i++) {
-    if (userPattern[i] !== cpuPattern[i]) {
-      if (strict === true) {
+    /* If strict mode is on and the wrong button is pressed, the game ends in a loss */
+    if (strict === true && (userPattern[i] !== cpuPattern[i])) {
         lostGame();
-        resetGame();
         return;
       }
-      else {
-        
-      }
+    /* If strict mode is off and the wrong button is pressed, the cpu pattern is repeated */
+    else if (strict === false && (userPattern[i] !== cpuPattern[i])) {
+      
     }
   }
-  if (level === 20) {
+  /* If level 20 is completed, the game ends in a win */
+  if (level === 5) {
     wonGame();
     return;
   }
@@ -128,6 +132,7 @@ function resetGame() {
   cpuPattern = [];
   userPattern = [];
   start = false;
+  strict = false;
   level = 0;
   buttonDefaults();
 }
@@ -139,45 +144,60 @@ function startButtonGlow() {
     document.getElementById("level").innerHTML = level;
 }
 
+/* Strict button glow settings */
+function strictButtonGlow() {
+    document.getElementById("strict").style.backgroundColor = "white";
+    document.getElementById("strict").style.boxShadow = "0 0 30px white";
+}
+
 /* Makes the colored buttons clickable */
 function enableButtons() {
   colorPool.forEach(function(color) {
     document.getElementById(color).disabled = false;
   });
+  document.getElementById("strict").disabled = true;
 }
 
 /* Button default settings */
 function buttonDefaults() {
-  document.getElementById("level").innerHTML = level;
+  document.getElementById("start").disabled = false;
   document.getElementById("start").style.backgroundColor = "#440000";
   document.getElementById("start").style.boxShadow = "none";
+  document.getElementById("strict").disabled = false;
+  document.getElementById("strict").style.backgroundColor = "white";
+  document.getElementById("strict").style.boxShadow = "none";
+  document.getElementById("level").innerHTML = level;
   colorPool.forEach(function(color) {
     document.getElementById(color).style.backgroundColor = color;
+    document.getElementById(color).style.boxShadow = "none";
     document.getElementById(color).disabled = true;
   });
 }
 
-/* Toggles strict game mode on and off
+/* Toggles the strict button on and off */
 function toggleStrict() {
   if (strict === false) {
     strict = true;
-    document.getElementById("strict").style.backgroundColor = "grey";
+    strictButtonGlow();
   } else {
     strict = false;
-    document.getElementById("strict").style.backgroundColor = "white";
+    document.getElementById("strict").style.boxShadow = "none";
   }
 }
 
-*/
-
-/* Won the game */
+/* Won the game, disables all buttons until reset button is pushed */
 function wonGame() {
-  alert("You won!");
-  resetGame();
+  document.getElementById("level").innerHTML = "WIN!";
+  colorPool.forEach(function(color) {
+    animateOneButton(color);
+    document.getElementById(color).disabled = true;
+  });
 }
 
-/* Lost the game */
+/* Lost the game, disables all buttons until reset button is pushed */
 function lostGame() {
-  alert("You lose!");
-  resetGame();
+  document.getElementById("level").innerHTML = "LOSE!";
+  colorPool.forEach(function(color) {
+    document.getElementById(color).disabled = true;
+  });
 }
