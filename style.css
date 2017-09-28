@@ -2,137 +2,140 @@ body {
   background: #8e9eab;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- }
- 
- #gameboard {
-   background-color: #000;
-   position: relative;
-   height: 500px;
-   width: 500px;
-   border-radius: 100%;
-   margin: auto;
-   margin-top: 10px;
- }
- 
- .colorbtn {
-   height: 200px;
-   width: 200px;
-   outline: none;
-   border: none;
- }
- 
- .functionbtn {
-   height: 50px;
-   width: 50px;
-   outline: none;
-   border-radius: 100%;
- }
- 
- #green {
-   background-color: green;
-   border-radius: 100% 0 0 0;
-   position: absolute;
-   top: 35px;
-   left: 40px;
- }
- 
- #red {
-   background-color: red;
-   border-radius: 0 100% 0 0;
-   position: absolute;
-   top: 35px;
-   left: 260px;
- }
- 
- #blue {
-   background-color: blue;
-   border-radius: 0 0 100% 0;
-   position: absolute;
-   top: 260px;
-   left: 260px;
- }
- 
- #yellow {
-   background-color: yellow;
-   border-radius: 0 0 0 100%;
-   position: absolute;
-   top: 260px;
-   left: 40px;
- }
- 
- #center {
-   height: 225px;
-   width: 225px;
-   background-color: black;
-   border-radius: 100%;
-   position: absolute;
-   top: 135px;
-   left: 135px;
-   z-index: 1;
- }
- 
- #simon {
-   font-family: 'Passion One', cursive;
-   font-size: 70px;
-   color: white;
-   position: absolute;
-   top: 20px;
-   left: 35px;
- }
- 
- #start {
-   background-color: #440000;
-   position: absolute;
-   top: 90px;
-   left: 30px;
- }
- 
- #reset {
-   background-color: black;
-   position: absolute;
-   top: 90px;
-   left: 90px;
- }
- 
- #strict {
-   background-color: white;
-   position: absolute;
-   top: 90px;
-   left: 150px;
- }
- 
- .label {
-   font-family: 'Quicksand', sans-serif;
-   font-size: 14px;
-   color: white;
-   position: absolute;
-   top: 145px;
- }
- 
- #startlabel {
-   left: 35px;
- }
- 
- #resetlabel {
-   left: 95px;
- }
- 
- #strictlabel {
-   left: 153px;
- }
- 
- #level {
-   display:inline-block;
-   height: 30px;
-   width: 100px;
-   line-height: 30px;
-   font-family: 'Orbitron', sans-serif;
-   font-size: 25px;
-   text-align: center;
-   color: red;
-   background-color: black;
-   border: 1px solid #fff;
-   position: absolute;
-   top: 170px;
-   left: 65px;
- }
+}
+
+#gameboard {
+  background-color: #000;
+  position: relative;
+  height: 500px;
+  width: 500px;
+  border-radius: 100%;
+  margin: auto;
+  margin-top: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.colorbtn {
+  height: 200px;
+  width: 200px;
+  outline: none;
+  border: none;
+}
+
+.functionbtn {
+  height: 50px;
+  width: 50px;
+  outline: none;
+  border-radius: 100%;
+}
+
+#green {
+  background: green;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 35px;
+  left: 40px;
+}
+
+#red {
+  background-color: red;
+  border-radius: 0 100% 0 0;
+  position: absolute;
+  top: 35px;
+  left: 260px;
+}
+
+#blue {
+  background-color: blue;
+  border-radius: 0 0 100% 0;
+  position: absolute;
+  top: 260px;
+  left: 260px;
+}
+
+#yellow {
+  background-color: yellow;
+  border-radius: 0 0 0 100%;
+  position: absolute;
+  top: 260px;
+  left: 40px;
+}
+
+#center {
+  height: 225px;
+  width: 225px;
+  background-color: black;
+  border-radius: 100%;
+  position: absolute;
+  top: 135px;
+  left: 135px;
+  z-index: 1;
+}
+
+#simon {
+  font-family: 'Passion One', cursive;
+  font-size: 70px;
+  color: white;
+  position: absolute;
+  top: 20px;
+  left: 35px;
+}
+
+#start {
+  background-color: #440000;
+  position: absolute;
+  top: 90px;
+  left: 30px;
+}
+
+#reset {
+  background-color: black;
+  position: absolute;
+  top: 90px;
+  left: 90px;
+}
+
+#strict {
+  background-color: white;
+  position: absolute;
+  top: 90px;
+  left: 150px;
+}
+
+.label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  color: white;
+  position: absolute;
+  top: 145px;
+}
+
+#startlabel {
+  left: 35px;
+}
+
+#resetlabel {
+  left: 95px;
+}
+
+#strictlabel {
+  left: 153px;
+}
+
+#level {
+  display:inline-block;
+  height: 30px;
+  width: 100px;
+  line-height: 30px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  color: red;
+  background-color: black;
+  border: 1px solid #fff;
+  position: absolute;
+  top: 170px;
+  left: 65px;
+}
