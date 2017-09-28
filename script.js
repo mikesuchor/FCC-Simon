@@ -36,7 +36,7 @@ var colorPool = ["green", "red", "blue", "yellow"];
 var cpuPattern = [];
 var userPattern = [];
 var start = false;
-var strict = true;
+var strict = false;
 var level = 0;
 
 /* Start button checks to see if the game isn't already running then starts the game, animates the button with startButtonGlow(), turns on the colored buttons with enableButtons(), and starts adding colors to the CPU pattern with addColorToCpuPattern() */
@@ -90,8 +90,8 @@ function animateOneButton(color) {
 
 /* Takes user input and pushes the color to the end of the userPattern array then runs patternMatchTest() function to test vs the cpu */
 function userColorInput(color) {
-    userPattern.push(color);
-    animateOneButton(color);
+  userPattern.push(color);
+  animateOneButton(color);
   if (userPattern.length === cpuPattern.length) {
       patternMatchTest();
   }
@@ -107,7 +107,8 @@ function patternMatchTest() {
       }
     /* If strict mode is off and the wrong button is pressed, the cpu pattern is repeated */
     else if (strict === false && (userPattern[i] !== cpuPattern[i])) {
-      
+      lostGame();
+      return;
     }
   }
   /* If level 20 is completed, the game ends in a win */
@@ -150,7 +151,16 @@ function strictButtonGlow() {
     document.getElementById("strict").style.boxShadow = "0 0 30px white";
 }
 
-/* Makes the colored buttons clickable */
+/* Disables the colored buttons */
+function disableButtons() {
+  colorPool.forEach(function(color) {
+    document.getElementById(color).style.backgroundColor = color;
+    document.getElementById(color).style.boxShadow = "none";
+    document.getElementById(color).disabled = true;
+  });
+}
+
+/* Enables the colored buttons */
 function enableButtons() {
   colorPool.forEach(function(color) {
     document.getElementById(color).disabled = false;
@@ -160,6 +170,7 @@ function enableButtons() {
 
 /* Button default settings */
 function buttonDefaults() {
+  disableButtons();
   document.getElementById("start").disabled = false;
   document.getElementById("start").style.backgroundColor = "#440000";
   document.getElementById("start").style.boxShadow = "none";
@@ -167,11 +178,6 @@ function buttonDefaults() {
   document.getElementById("strict").style.backgroundColor = "white";
   document.getElementById("strict").style.boxShadow = "none";
   document.getElementById("level").innerHTML = level;
-  colorPool.forEach(function(color) {
-    document.getElementById(color).style.backgroundColor = color;
-    document.getElementById(color).style.boxShadow = "none";
-    document.getElementById(color).disabled = true;
-  });
 }
 
 /* Toggles the strict button on and off */
