@@ -20,10 +20,7 @@ Hint: Here are mp3s you can use for each button: https://s3.amazonaws.com/freeco
 */
 
 /* Things to add:
-1. Fix sounds on button presses by CPU and by user.
-2. Fix nonstrict mode logic to repeat the sequence, not end the game.
-3. Add strict mode.
-4. Disable user click during button animation.
+1. Disable user click during button animation.
 */
 
 /* Wish List:
@@ -61,7 +58,6 @@ function addColorToCpuPattern() {
 /* Generates a random number between 0-3 and reates an array of colors corresponding to the random numbers, plays the corresponding sound, then returns a random color */
 function createRandomColor() {
   var randomNumber = Math.floor(Math.random() * 4);
-  playSound(randomNumber + 1);
   return colorPool[randomNumber];
 }
 
@@ -73,7 +69,7 @@ function animateAllButtons() {
       setTimeout(function() {
         animateOneButton(cpuPattern[i]);
       }, 500 * i);
-    }, 500 * i);
+    }, 500 + (500 * i));
   }
 }
 
@@ -92,33 +88,43 @@ function animateOneButton(color) {
 function userColorInput(color) {
   userPattern.push(color);
   animateOneButton(color);
-  if (userPattern.length === cpuPattern.length) {
-      patternMatchTest();
-  }
+  patternMatchTest();
 }
 
 /* Checks if the user input (pattern) matches the cpu output (pattern), if true the level number is incremented (game is won at level 20), and a new color is added to the cpu pattern, if false the game is reset */
 function patternMatchTest() {
-  for (var i = 0; i < cpuPattern.length; i++) {
-    /* If strict mode is on and the wrong button is pressed, the game ends in a loss */
-    if (strict === true && (userPattern[i] !== cpuPattern[i])) {
+  for (var i = 0; i < userPattern.length; i++) {
+    if (userPattern[i] !== cpuPattern[i]) {
+      if (checkStrictMode()) {
         lostGame();
         return;
       }
-    /* If strict mode is off and the wrong button is pressed, the cpu pattern is repeated */
-    else if (strict === false && (userPattern[i] !== cpuPattern[i])) {
-      lostGame();
-      return;
+      else {
+        userPattern = [];
+        animateAllButtons();
+      }
     }
   }
-  /* If level 20 is completed, the game ends in a win */
-  if (level === 5) {
-    wonGame();
-    return;
+  /* If the user's pattern is the same length as the cpu pattern, check if level 20 is completed (ends in a win), otherwise clear the user pattern and add another color to the cpu pattern */
+  if (userPattern.length === cpuPattern.length) {
+    if (level === 20) {
+      wonGame();
+      return;
+    }
+    userPattern = [];
+    addColorToCpuPattern();
   }
-  userPattern = [];
-  addColorToCpuPattern();
 }
+
+/* If strict mode is on and the wrong button is pressed, returns true and the game ends in a loss. If strict mode is off and the wrong button is pressed, returns false and the cpu pattern is repeated */
+function checkStrictMode() {
+  if (strict === true) {
+    return true;
+  }
+  else {
+    return false;
+  }
+} 
 
 /* Plays sounds on colored button presses */
 function playSound(number) {
