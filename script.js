@@ -128,9 +128,7 @@ function checkStrictMode() {
 
 /* Plays sounds on colored button presses */
 function playSound(number) {
-  var sound = new Audio(
-    "https://s3.amazonaws.com/freecodecamp/simonSound" + number + ".mp3"
-  );
+  var sound = new Audio(`https://s3.amazonaws.com/freecodecamp/simonSound${number}.mp3`);
   sound.play();
 }
 
