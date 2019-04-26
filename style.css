@@ -143,7 +143,7 @@ body {
 
 /* Responsive */
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   body {
     margin-top: 20px;
   }
@@ -152,7 +152,7 @@ body {
     position: relative;
     height: 300px;
     width: 300px;
-    margin-left: 8px;
+    margin: auto;
     margin-top: 0px;
   }
   
